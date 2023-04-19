@@ -1,12 +1,11 @@
 "use client";
-
-import Input from "./Input";
-import Button from "./Button";
-import Card from "./Card";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { register, signin } from "@/lib/api";
 import { useCallback, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Card from "./Card";
+import Button from "./Button";
+import Input from "./Input";
 
 const registerContent = {
   linkUrl: "/signin",
@@ -26,7 +25,7 @@ const signinContent = {
 
 const initial = { email: "", password: "", firstName: "", lastName: "" };
 
-const Authform = ({ mode }) => {
+export default function AuthForm({ mode }: { mode: "register" | "signin" }) {
   const [formState, setFormState] = useState({ ...initial });
   const [error, setError] = useState("");
 
@@ -144,6 +143,4 @@ const Authform = ({ mode }) => {
       </div>
     </Card>
   );
-};
-
-export default Authform;
+}
