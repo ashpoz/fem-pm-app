@@ -8,7 +8,6 @@ export const comparePasswords = (plainTextPassword, hashedPassword) =>
   bcrypt.compare(plainTextPassword, hashedPassword);
 
 export const createJWT = (user) => {
-  // return jwt.sign({ id: user.id }, 'cookies')
   const iat = Math.floor(Date.now() / 1000);
   const exp = iat + 60 * 60 * 24 * 7;
 
@@ -36,7 +35,7 @@ export const getUserFromCookie = async (cookies) => {
 
   const user = await db.user.findUnique({
     where: {
-      id: id as string,
+      id,
     },
   });
 

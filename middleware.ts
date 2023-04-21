@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 const PUBLIC_FILE = /\.(.*)$/;
 
-// had to make this again here as the other one is in a file with bcrypt which is not supported on edge runtimes
 const verifyJWT = async (jwt) => {
   const { payload } = await jwtVerify(
     jwt,
@@ -14,6 +13,7 @@ const verifyJWT = async (jwt) => {
 
 export default async function middleware(req, res) {
   const { pathname } = req.nextUrl;
+
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
@@ -36,7 +36,6 @@ export default async function middleware(req, res) {
     await verifyJWT(jwt.value);
     return NextResponse.next();
   } catch (e) {
-    console.error(e);
     req.nextUrl.pathname = "/signin";
     return NextResponse.redirect(req.nextUrl);
   }

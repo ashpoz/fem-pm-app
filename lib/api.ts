@@ -9,8 +9,8 @@ export const fetcher = async ({ url, method, body, json = true }) => {
   });
 
   if (!res.ok) {
-    // throw errs
-    throw new Error("API Error");
+    // handle your errors
+    throw new Error("API error");
   }
 
   if (json) {
@@ -19,10 +19,19 @@ export const fetcher = async ({ url, method, body, json = true }) => {
   }
 };
 
-export const register = async (user) => {
-  return fetch({ url: "/api/register", method: "post", body: user });
+export const register = (user) => {
+  return fetcher({ url: "/api/register", method: "post", body: user });
 };
 
-export const signin = async (user) => {
-  return fetch({ url: "/api/signin", method: "post", body: user });
+export const signin = (user) => {
+  return fetcher({ url: "/api/signin", method: "post", body: user });
+};
+
+export const createNewProject = async (name) => {
+  return fetcher({
+    url: "/api/project",
+    method: "POST",
+    body: { name },
+    json: true,
+  });
 };
